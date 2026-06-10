@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_pos_ti4pb/ui/home/home_page.dart';
-import 'package:flutter_pos_ti4pb/ui/menu/bloc/get_table_restoes/get_table_restoes_bloc.dart';
-import 'package:flutter_pos_ti4pb/ui/menu/pages/table_resto_page.dart';
+import 'package:flutter_pos_ti4pav2/ui/home/home_page.dart';
+import 'package:flutter_pos_ti4pav2/ui/menu/bloc/get_table_restoes/get_table_restoes_bloc.dart';
+import 'package:flutter_pos_ti4pav2/ui/menu/pages/table_resto_page.dart';
 
 void main() {
   runApp(const MyApp());

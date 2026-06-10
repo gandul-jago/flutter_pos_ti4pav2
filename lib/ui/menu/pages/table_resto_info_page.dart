@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pos_ti4pb/data/models/table_resto_model.dart';
+import 'package:flutter_pos_ti4pav2/data/models/table_resto_model.dart';
 
 class TableRestoInfoPage extends StatelessWidget {
   final TableRestoModel tableRestoModel;

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_pos_ti4pb/data/models/table_resto_model.dart';
-import 'package:flutter_pos_ti4pb/data/repo/table_resto_repository.dart';
+import 'package:flutter_pos_ti4pav2/data/models/table_resto_model.dart';
+import 'package:flutter_pos_ti4pav2/data/repo/table_resto_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'get_table_restoes_event.dart';
