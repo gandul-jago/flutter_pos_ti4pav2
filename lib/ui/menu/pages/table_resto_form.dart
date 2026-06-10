@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pos_ti4pav2/ui/menu/bloc/create_table_resto/create_table_resto_bloc.dart';
+
+import '../../../param/table_resto_param.dart';
 // import 'package:flutter_pos_template_2026/data/param/table_resto_param.dart';
+
+class PostTableResto extends StatelessWidget {
+  const PostTableResto({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // return block provider
+    return TableRestoForm();
+  }
+}
 
 class TableRestoForm extends StatefulWidget {
   const TableRestoForm({super.key});
@@ -13,10 +26,12 @@ class _TableRestoFormState extends State<TableRestoForm> {
   final tecName = TextEditingController();
   final tecCapacity = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  late CreateTableRestoBloc createTableRestoBloc;
 
   @override
   void initState() {
     super.initState();
+    createTableRestoBloc 
   }
 
   @override
@@ -31,91 +46,104 @@ class _TableRestoFormState extends State<TableRestoForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Table Resto Form')),
-      body: Form(
-        key: formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              spacing: 20,
-              children: [
-                TextFormField(
-                  controller: tecCode,
-                  keyboardType: TextInputType.name,
-                  validator: (value) => value == null || value.isEmpty
-                      ? 'Kode meja masih kosong'
-                      : null,
-                  decoration: InputDecoration(
-                    labelText: 'Kode Meja',
-                    hintText: 'Masukkan kode meja',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
+      body: BlocBuilder<CreateTableRestoBloc, CreateTableRestoState>(
+        builder: (context, state) {
+          if(state is CreateTableRestoError)
+          return Form(
+            key: formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 20,
+                  children: [
+                    TextFormField(
+                      controller: tecCode,
+                      keyboardType: TextInputType.name,
+                      validator: (value) =>
+                      value == null || value.isEmpty
+                          ? 'Kode meja masih kosong'
+                          : null,
+                      decoration: InputDecoration(
+                        labelText: 'Kode Meja',
+                        hintText: 'Masukkan kode meja',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                      ),
                     ),
-                  ),
+                    TextFormField(
+                      controller: tecName,
+                      keyboardType: TextInputType.name,
+                      validator: (value) =>
+                      value == null || value.isEmpty
+                          ? 'Nama meja masih kosong'
+                          : null,
+                      decoration: InputDecoration(
+                        labelText: 'Nama Meja',
+                        hintText: 'Masukkan nama meja',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                      ),
+                    ),
+                    TextFormField(
+                      controller: tecCapacity,
+                      keyboardType: TextInputType.number,
+                      validator: (value) =>
+                      value == null || value.isEmpty
+                          ? 'Kapasitas meja masih kosong'
+                          : null,
+                      decoration: InputDecoration(
+                        labelText: 'Kapasitas Meja',
+                        hintText: 'Masukkan kapasitas meja',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 60,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme
+                              .of(
+                            context,
+                          )
+                              .colorScheme
+                              .inversePrimary,
+                          foregroundColor: Theme
+                              .of(context)
+                              .colorScheme
+                              .secondary,
+                        ),
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            final tableRestoParam = TableRestoParam(
+                             tecCode.text,
+                             tecName.text,
+                             int.parse(tecCapacity.text.toString()),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text('Data berhasil disimpan...')),
+                            );
+                          }
+                        },
+                        child: Text(
+                          'SIMPAN',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                TextFormField(
-                  controller: tecName,
-                  keyboardType: TextInputType.name,
-                  validator: (value) => value == null || value.isEmpty
-                      ? 'Nama meja masih kosong'
-                      : null,
-                  decoration: InputDecoration(
-                    labelText: 'Nama Meja',
-                    hintText: 'Masukkan nama meja',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                  ),
-                ),
-                TextFormField(
-                  controller: tecCapacity,
-                  keyboardType: TextInputType.number,
-                  validator: (value) => value == null || value.isEmpty
-                      ? 'Kapasitas meja masih kosong'
-                      : null,
-                  decoration: InputDecoration(
-                    labelText: 'Kapasitas Meja',
-                    hintText: 'Masukkan kapasitas meja',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 60,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(
-                        context,
-                      ).colorScheme.inversePrimary,
-                      foregroundColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        //final tableRestoParam = TableRestoParam(
-                        //  tecCode.text,
-                        //  tecName.text,
-                        //  int.parse(tecCapacity.text.toString()),
-                        //  null,
-                        //  null,
-                        // );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Data berhasil disimpan...')),
-                        );
-                      }
-                    },
-                    child: Text(
-                      'SIMPAN',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

@@ -5,7 +5,6 @@ import 'package:flutter_pos_ti4pav2/ui/menu/bloc/get_table_restoes/get_table_res
 import 'package:flutter_pos_ti4pav2/ui/menu/pages/table_resto_form.dart';
 import 'package:flutter_pos_ti4pav2/ui/menu/pages/table_resto_info_page.dart';
 
-
 class TableResto extends StatelessWidget {
   const TableResto({super.key});
 
@@ -39,9 +38,14 @@ class _TableRestoPageState extends State<TableRestoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Table Resto')),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => TableRestoForm()));
-      }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => TableRestoForm()),
+          );
+        },
+      ),
       body: BlocBuilder<GetTableRestoesBloc, GetTableRestoesState>(
         builder: (context, state) {
           return switch (state) {
@@ -65,9 +69,7 @@ class _TableRestoPageState extends State<TableRestoPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => TableRestoInfoPage(
-                              tableRestoModel: tableRestoModel,
-                            ),
+                            builder: (context) => PostTableResto(),
                           ),
                         );
                       },
