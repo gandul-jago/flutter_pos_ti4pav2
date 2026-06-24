@@ -5,7 +5,6 @@ import 'package:pmp12project/ui/menu/bloc/get_table_restoes/get_table_restoes_bl
 import 'package:pmp12project/ui/menu/bloc/update_table_resto/update_table_resto_bloc.dart';
 import 'package:pmp12project/ui/menu/pages/table_resto_form.dart';
 import 'package:pmp12project/ui/menu/pages/table_resto_info_page.dart';
-import 'package:pmp12project/ui/menu/bloc/update_table_resto/update_table_resto_bloc.dart'; // Sesuaikan path BLoC kamuBENAR PATH-NYA
 
 class TableResto extends StatelessWidget {
   const TableResto({super.key});

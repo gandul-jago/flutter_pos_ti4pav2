@@ -29,6 +29,54 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
           OrderMenuModel(menuRestoModel: event.menuRestoModel, quantity: 1),
         );
       }
+      double subTotal = 0;
+      double totalQuantity = 0;
+      for (var element in newCheckout) {
+        totalQuantity += element.quantity;
+        subTotal += element.quantity * element.menuRestoModel.price!;
+      }
+      emit(
+        CheckoutSuccess(
+          listOrderMenu: newCheckout,
+          subTotal: subTotal,
+          totalQuantity: totalQuantity,
+        ),
+      );
+    });
+
+    // kurangi sytoke
+    on<RemoveMenuRestoPressed>((event, emit) {
+      var currentState = state as CheckoutSuccess;
+      List<OrderMenuModel> newCheckout = [...currentState.listOrderMenu];
+      emit(CheckoutLoading());
+      // TODO: implement event handler
+
+      if (newCheckout.any(
+        (element) => element.menuRestoModel == event.menuRestoModel,
+      )) {
+        var index = newCheckout.indexWhere(
+          (element) => element.menuRestoModel == event.menuRestoModel,
+        );
+        if (newCheckout[index].quantity == 1) {
+          newCheckout.removeAt(index);
+        } else {
+          newCheckout[index].quantity--;
+        }
+      }
+
+      double subTotal = 0;
+      double totalQuantity = 0;
+      for (var element in newCheckout) {
+        totalQuantity += element.quantity;
+        subTotal += element.quantity * element.menuRestoModel.price!;
+      }
+      emit(
+        CheckoutSuccess(
+          listOrderMenu: newCheckout,
+          subTotal: subTotal,
+          totalQuantity: totalQuantity,
+        ),
+      );
     });
   }
 }
